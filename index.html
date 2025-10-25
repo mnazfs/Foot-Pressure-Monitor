@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 Piezo Sensor Live Data</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #log { white-space: pre-wrap; background: #f0f0f0; padding: 10px; height: 300px; overflow-y: scroll; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h2>ESP32 Piezo Sensor Live Data Log</h2>
+  <div id="log"></div>
+
+  <script>
+    const logDiv = document.getElementById('log');
+
+    async function fetchSensorData() {
+      try {
+        // Replace IP address with your ESP32 IP
+        const response = await fetch('http://172.28.58.188');
+        const text = await response.text();
+
+        // Append new data line
+        const timeStamp = new Date().toLocaleTimeString();
+        logDiv.textContent = `[${timeStamp}] ${text}`;
+
+        // Scroll to bottom to show latest entry
+        logDiv.scrollTop = logDiv.scrollHeight;
+      } catch (error) {
+        logDiv.textContent = `Error fetching data: ${error}\n`;
+      }
+    }
+
+    // Fetch new data every 1 second
+    setInterval(fetchSensorData, 1000);
+
+    // Initial fetch
+    fetchSensorData();
+  </script>
+</body>
+</html>
