@@ -24,7 +24,7 @@ function App() {
   });
 
   const [isConnected, setIsConnected] = useState(false);
-  const [esp32Ip, setEsp32Ip] = useState('192.168.43.150');
+  const [esp32Ip, setEsp32Ip] = useState('10.11.129.150');
 
   useEffect(() => {
     const fetchSensorData = async () => {
